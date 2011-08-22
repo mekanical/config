@@ -1,1 +1,0 @@
-spl 'test_check.txt' w l, 'test_feed.txt' w l
