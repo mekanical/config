@@ -375,12 +375,20 @@ hi PmenuSbar ctermbg=0 ctermfg=9
 "-----
 " プラグイン関連 plugin
 "------------------------------
-"vim-pathogen ----------
-filetype off " pathogenでftdetectなどをloadさせるために一度ファイルタイプ判定をoff
-call pathogen#runtime_append_all_bundles() " pathogen.vimによってbundle配下のpluginをpathに加える
-" call pathogen#helptags()
-set helpfile=$VIMRUNTIME/doc/help.txt
-filetype plugin on " ファイルタイプ判定をon
+set rtp+=~/.vim/vundle.git/          "vundleのディレクトリ
+call vundle#rc()
+"Bundle パッケージ名で管理
+Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/neocomplcache'
+Bundle 'thinca/vim-ref'
+Bundle 'thinca/vim-quickrun'
+Bundle 'chrismetcalf/vim-yankring'
+Bundle 'scrooloose/nerdcommenter'
+Bundle ''
+Bundle 'vim-operator-replace'
+Bundle 'tpope/vim-surround'
+Bundle ''
+filetype plugin indent on
 
 "unite ----------
 nmap <Leader>uf :<C-u>Unite -buffer-name=files file<CR>
@@ -396,11 +404,6 @@ let g:unite_source_file_mru_limit = 200
 " " Start insert.
   " let g:unite_enable_start_insert = 1
 " endfunction"}}}
-
-"VTreeExplorer ----------
-let g:treeExplVertical=1
-let g:treeExplWinSize=30
-nnoremap <Leader>ee :<C-u>VSTreeExplore<CR>
 
 "MiniBufExplorer ----------
 "set minibfexp
