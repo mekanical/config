@@ -1,0 +1,150 @@
+;-----
+; OS毎の設定
+;--------------------
+(cond
+; Mac(Unix)
+((string-match "apple-darwin" system-configuration)
+  (setq load-path (cons "/Users/mekanical/site-lisp/" load-path))  ; pathの設定
+  (setq mac-option-modifier 'meta)  ; MetaキーをAltキーに
+  (setq initial-frame-alist '((width . 130)(height . 60)(top . 0)(left . 0)))
+  (mac-key-mode 1)                  ; Macなキーバインドを導入
+  ; font
+  (add-to-list 'default-frame-alist'(font . "-apple-m+2vm+ipag circle-medium-r-normal--10-0-72-72-m-0-iso10646-1"))
+)
+; Linux
+((string-match "linux" system-configuration)
+  (setq load-path (cons "/home/sugimoto/.emacs.d/site-lisp/" load-path))  ; pathの設定
+  (setq initial-frame-alist '((width . 130)(height . 51)(top . 0)(left . 0)))
+))
+
+;-----
+; キーバインド
+;--------------------
+(define-key global-map "\C-h" 'delete-backward-char) ; 削除
+(define-key global-map "\M-?" 'help-for-help)        ; ヘルプ
+(define-key global-map "\C-z" 'undo)                 ; undo
+(define-key global-map "\C-ci" 'indent-region)       ; インデント
+(define-key global-map "\C-c\C-i" 'dabbrev-expand)   ; 補完
+(define-key global-map "\C-c;" 'comment-region)      ; コメントアウト
+(define-key global-map "\C-c:" 'uncomment-region)    ; コメント解除
+(define-key global-map "\C-o" 'toggle-input-method)  ; 日本語入力切替
+(define-key global-map "\C-\\" nil) ; \C-\の日本語入力の設定を無効にする
+(define-key global-map "\C-c " 'other-frame)         ; フレーム移動
+(define-key global-map "\C-s" 'save-buffer)  ; 上書き保存
+(global-set-key "\C-m" 'newline-and-indent)
+(global-set-key "\C-j" 'newline)
+
+
+;-----
+; ウィンドウの設定
+;--------------------
+(if window-system (progn
+  (set-background-color "black")
+  (set-foreground-color "white")
+  (set-cursor-color "Gray")
+))
+
+;-- ウィンドウを半透明化
+(set-frame-parameter nil 'alpha 80)
+
+;-- フォントの設定
+; (if (eq window-system 'mac)(require 'carbon-font))
+  ; (fixed-width-set-fontset "hirakaku_w3" 8)
+
+;-- タイトルバーにファイル名を表示する
+(setq frame-title-format (format "%%f - emacs@%s" (system-name)))
+
+;-- スクロールを一行ずつにする
+(setq scroll-step 1)
+
+;-- スクロールバーを右側に表示する
+(set-scroll-bar-mode 'right)
+
+;-- 起動時のアレを非表示に
+(setq inhibit-startup-message t)
+
+
+;-----
+; 入力補助
+;--------------------
+;-- Shiftで選択
+(setq pc-select-selection-keys-only t)
+(pc-selection-mode 1)
+
+;-- タブをスペースに
+(setq-default tab-width 4 indent-tabs-mode nil)
+
+;対応する括弧を光らせる。
+(show-paren-mode 1)
+
+;-- カーソルの位置が何文字目かを表示する
+(column-number-mode t)
+
+;-- カーソルの位置が何行目かを表示する
+(line-number-mode t)
+
+;-- 行をハイライト
+(defface hlline-face
+  '((((class color)
+      (background dark))
+     (:background "gray10"
+                  :underline "gray24"))
+    (((class color)
+      (background light))
+     (:background "ForestGreen"
+                  :underline nil))
+    (t ()))
+  "*Face used by hl-line.")
+(setq hl-line-face 'hlline-face)
+(global-hl-line-mode)
+
+;-- 最終行に必ず一行挿入する
+(setq require-final-newline t)
+
+
+;-----
+; マウス関連
+;--------------------
+;-- ホイールを有効に
+(mouse-wheel-mode t)
+(setq mouse-wheel-follow-mouse t)
+
+
+;-----
+; ファイル関連
+;--------------------
+;-- バックアップファイルを作らない
+(setq backup-inhibited t)
+(setq make-backup-files nil)
+;-- 終了時にオートセーブファイルを消す
+(setq delete-auto-save-files t)
+
+
+;-----
+; プラグイン関連
+;--------------------
+;-- elscreenの設定
+(setq elscreen-prefix-key "\C-t") ;prefixキー
+(load "elscreen")
+
+
+;-----
+; YaTeX関連
+;--------------------
+;-- YaTeXを起動
+(setq auto-mode-alist
+      (cons (cons "¥¥.tex$" 'yatex-mode) auto-mode-alist))
+(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
+;-- platexコマンドの設定
+(setq tex-command "platex")
+;-- font-lock 機能を使う
+(global-font-lock-mode t)
+(setq YaTeX-use-font-lock t)
+;-- Previewを使う
+(setq dvi2-command "open -a Preview")
+
+
+;-----
+;  その他の設定
+;-----------------------------
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+ifort -o quickifort.out $1
+./quickifort.out
+rm quickifort.out

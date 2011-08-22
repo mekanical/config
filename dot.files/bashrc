@@ -1,0 +1,15 @@
+# PATH="$PATH":/usr/local/bin/
+# if [ -n "$SSH_CONNECTION" -a -z "$SSH_TTY" ]; then
+       # NOZSH="nozsh"
+# fi
+# if [ -z "$NOZSH" -a -x `which zsh` ]; then
+       # #exec screen -l -U
+       # exec zsh -l
+# else
+       # echo 'no zsh'
+       # #source ~/.bash_specified
+# fi
+
+if [ $PS1 ]; then
+  exec zsh -l
+fi

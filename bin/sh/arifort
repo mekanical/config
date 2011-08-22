@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ $# -ge 2 ]; then
+    fileName=`echo $1 | sed -e 's/\..*//'`
+    cp ~/Dropbox/config/archive/MPI_dummy.f90 .
+    ifort -fast -axSSE4.1,SSSE3 -parallel -multiple-processes=2 $1 MPI_dummy.f90 -o $3
+    export OMP_NUM_THREADS=$2
+else
+    echo "Error: Input paramater!"
+    echo "ifortParallel [\$FILE_NAMES \$CORE_NUMBER]"
+fi

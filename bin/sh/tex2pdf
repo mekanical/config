@@ -1,0 +1,24 @@
+#!/bin/sh
+if [ $# -ge 1 ]; then
+    fileName=`echo $1 | sed -e 's/\..*//'`
+    nkf -e $fileName.tex > tex2pdfTemp.tex
+    mv $fileName.toc tex2pdfTemp.toc
+    mv $fileName.aux tex2pdfTemp.aux
+    if [ `uname`  =  "Darwin" ]; then
+      platex-euc tex2pdfTemp
+    elif [ `uname`  =  "Linux" ]; then
+      platex tex2pdfTemp
+    fi
+    dvipdfmx tex2pdfTemp
+    mv tex2pdfTemp.pdf $fileName.pdf
+    mv tex2pdfTemp.toc $fileName.toc
+    mv tex2pdfTemp.aux $fileName.aux
+    rm tex2pdfTemp.*
+    if [ `uname`  =  "Darwin" ]; then
+      open $fileName.pdf &
+    elif [ `uname`  =  "Linux" ]; then
+      evince $fileName.pdf &
+    fi
+else
+    echo "error:input file name."
+fi

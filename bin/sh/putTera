@@ -1,0 +1,2 @@
+#!/bin/sh
+cp -r $1 /mnt/tera/7th/sugimoto/workingDir

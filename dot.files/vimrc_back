@@ -1,0 +1,145 @@
+syntax on
+
+"if &term =~ "xterm-256color"
+"	colorscheme "desert256
+"	" omini..
+"	highlight Pmenu ctermbg=8
+"	highlight PmenuSel ctermbg=12
+"	highlight PmenuSbar ctermbg=0
+"endif
+
+highlight ZenkakuSpace ctermbg=6
+match ZenkakuSpace /\s\+$\|　/
+
+"ポップアップ補完メニュー色設定（通常の項目、選択されている項目、スクロールバー、スクロールバーのつまみ部分）
+highlight Pmenu ctermbg=7 ctermfg=0
+highlight PmenuSel ctermbg=6 ctermfg=0
+highlight PmenuSbar ctermbg=3
+highlight PmenuThumb ctermbg=0 guibg=Red
+"hi Pmenu ctermbg=8
+"hi PmenuSel ctermbg=12
+"hi PmenuSbar ctermbg=0
+
+set listchars=tab:>.
+"set list
+
+" zsh っぽい補完に
+set wildmode=longest,list
+
+" ちゃんと文字書いて○とか
+set ambiwidth=double
+
+" ポップアップメニューをよしなに
+set completeopt=menu,preview,longest,menuone
+
+" 補完候補の設定
+set complete=.,w,b,u,k
+
+" バックアップとか自分でしろ
+set nobackup
+
+" 誰かが編集したら読み直して
+set autoread
+
+" 袖あまりは良いものだ
+"set scrolloff=10000000
+" 行番号の表示
+set number
+" デフォルトインデント設定
+set autoindent smartindent
+" よさげなタブ
+set smarttab
+set softtabstop=2 tabstop=2 shiftwidth=2
+set expandtab
+" BS の挙動
+set backspace=indent,eol,start
+
+" よしなに検索
+set ignorecase smartcase
+" インクメンタルサーチ
+set incsearch
+" 検索文字の強調表示
+set hlsearch
+" 最初にもどれ
+set wrapscan
+"検索語が画面の真ん中に来る
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
+nmap g* g*zz
+nmap g# g#zz
+" Esc
+"map  <C-@> <Esc>
+
+" 対応する括弧の表示
+set showmatch
+" 入力中のコマンドを表示
+set showcmd
+
+" 行頭・行末間移動を可能に
+set whichwrap=b,s,h,l,<,>,[,]
+
+" 補完候補を表示する
+"set wildmenu
+
+"set splitbelow
+
+"set nrformats="hex"
+
+" ステータス表示用変数
+set laststatus=2
+set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}%=%l,%c%V%8P
+
+set termencoding=utf-8
+set encoding=utf-8
+set fileencodings=utf-8,cp932,euc-jp,iso-2022-jp,ucs-2le,ucs-2
+
+" Save しなくても他のファイルを
+set hidden
+
+set viminfo+=!
+
+set nowrap
+set sidescroll=5
+set listchars+=precedes:<,extends:>
+
+filetype plugin on
+filetype indent on
+
+" FuzzyBuffer
+nnoremap <unique> <silent> ,b :FuzzyFinderBuffer<CR>
+nnoremap <unique> <silent> ;b :FuzzyFinderBuffer<CR>
+nnoremap <unique> <silent> ,F :FuzzyFinderFile<CR>
+nnoremap <unique> <silent> ;F :FuzzyFinderFile<CR>
+nnoremap <unique> <silent> ,f :FuzzyFinderFile <C-r>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
+nnoremap <unique> <silent> ;f :FuzzyFinderFile <C-r>=expand('%:~:.')[:-1-len(expand('%:~:.:t'))]<CR><CR>
+nnoremap <unique> <silent> ,r :FuzzyFinderMruFile<CR>
+nnoremap <unique> <silent> ;r :FuzzyFinderMruFile<CR>
+
+"ノーマルモードの<C-^>を無効化
+nnoremap <silent> <C-^> <Nop>
+
+"insert mode key binding
+"カーソル移動 ↑↓←→
+inoremap <C-p>  <Up>
+inoremap <C-n> <Down>
+"inoremap <C-b> <Left>
+"imap <C-f> <Right>
+"文字消し
+imap <C-d> <Delete>
+imap <C-h> <Backspace>
+
+
+"gvim setting ----------
+if has('gui_macvim') 
+    set showtabline=2   " タブを常に表示 
+    set imdisable   " IMを無効化 
+    set transparency=8 " 透明度を指定 
+    set antialias 
+    set guifont=M+2VM+IPAG\ circle\ Regular:h10 
+    set guifontwide=M+2VM+IPAG\ circle\ Regular:h10
+    set lines=90 columns=300 
+    colorscheme Dark 
+endif
+

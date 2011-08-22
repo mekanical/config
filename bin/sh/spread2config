@@ -1,0 +1,23 @@
+#/bin/bash
+
+PASS="tmaeda"
+RC_FILES="/home/sugimoto/Dropbox/archive/rcFiles"
+set 192.168.2.96 192.168.2.94 192.168.2.92 192.168.2.91 192.168.2.21
+
+while [ "$1" != "" ] ; do
+  expect -c "
+    spawn scp -r ${RC_FILES} sugimoto@${1}:
+    expect {
+      \" Are you sure you want to continue connecting (yes/no)? \" {
+        send \"yse\r\"
+        expect \"password:\"
+        send \"${PASS}\r\"
+      } \"password:\" {
+        send \"${PASS}\r\"
+      }
+    }
+    interact
+  "
+  shift 1
+done
+

@@ -1,0 +1,28 @@
+#/bin/bash
+
+PASS="tmaeda"
+CONFIG_DIR="/home/sugimoto/Dropbox/config"
+set 192.168.2.96 192.168.2.94 192.168.2.92 192.168.2.91 192.168.2.21 192.168.2.24
+
+mkdir ~/tmp_trsptConfDir
+mkdir ~/tmp_trsptConfDir/Dropbox
+cp -r ${CONFIG_DIR} ~/tmp_trsptConfDir/Dropbox/
+
+while [ "$1" != "" ] ; do
+  expect -c "
+    spawn scp -r /home/sugimoto/tmp_trsptConfDir/Dropbox sugimoto@${1}:
+    expect {
+      \" Are you sure you want to continue connecting (yes/no)? \" {
+        send \"yse\r\"
+        expect \"password:\"
+        send \"${PASS}\r\"
+      } \"password:\" {
+        send \"${PASS}\r\"
+      }
+    }
+    interact
+  "
+  shift 1
+done
+
+rm -r ~/tmp_trsptConfDir

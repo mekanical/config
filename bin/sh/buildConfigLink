@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# shell config -----
+rm -i -v ~/.bashrc
+rm -i -v ~/.zshrc
+rm -i -v ~/.alias
+
+ln -s ~/Dropbox/config/dot.files/bashrc ~/.bashrc
+ln -s ~/Dropbox/config/dot.files/zshrc ~/.zshrc
+ln -s ~/Dropbox/config/dot.files/alias ~/.alias
+
+# vim config -----
+rm -i -v ~/.vim
+rm -i -v ~/.vimrc
+rm -i -r -v ~/.gvimrc
+rm -i -v ~/.vimperatorrc
+
+ln -s ~/Dropbox/config/dot.files/vim ~/.vim
+ln -s ~/Dropbox/config/dot.files/vimrc ~/.vimrc
+ln -s ~/Dropbox/config/dot.files/gvimrc ~/.gvimrc
+ln -s ~/Dropbox/config/dot.files/vimperatorrc ~/.vimperatorrc
+
+# emacs config -----
+rm -i -v ~/.emacs
+rm -i -r -v ~/.emacs.d
+
+ln -s ~/Dropbox/config/dot.files/emacs ~/.emacs
+ln -s ~/Dropbox/config/dot.files/emacs.d ~/.emacs.d
+
+# screen config -----
+rm -i -v ~/.screenrc
+
+ln -s ~/Dropbox/config/dot.files/screenrc ~/.screenrc
+
+

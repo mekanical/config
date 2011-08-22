@@ -1,0 +1,334 @@
+export PATH=/Users/usr/bin/:/usr/local/bin/:~/Dropbox/config/bin/sh/:~/Dropbox/config/bin/rb/:$PATH
+export MANPATH=/opt/local/man:$MANPATH
+
+# OSゴトの設定
+case "${OSTYPE}" in
+# Mac(Unix)
+darwin*)
+  ;;
+# Linux
+linux*)
+  . /opt/intel/Compiler/11.1/072/bin/ia32/ifortvars_ia32.sh
+  ;;
+esac
+
+#### キーバインド
+bindkey -e  # Emacs風キーバインド
+
+bindkey '^P' history-beginning-search-backward # 先頭マッチのヒストリサーチ
+bindkey '^N' history-beginning-search-forward  # 先頭マッチのヒストリサーチ
+
+#### autoload
+
+# 色付け
+autoload -U colors
+colors
+
+# 補完
+autoload -U compinit
+compinit
+#source ~/.zsh/cdd
+
+# predict
+#autoload -U predict-on
+#predict-on
+
+#### zstyle
+
+# 補完侯補をEmacsのキーバインドで動き回る
+zstyle ':completion:*:default' menu select=1
+
+# 補完の時に大文字小文字を区別しない
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# 補完候補一覧をカラー表示する
+zstyle ':completion:*' list-colors ''
+
+#### history
+HISTFILE="$HOME/.zhistory"      # 履歴ファイル
+HISTSIZE=10000                  # メモリ上に保存される $HISTFILE の最大サイズ？
+SAVEHIST=10000                  # 保存される最大履歴数
+
+### エイリアス
+case `uname` in
+    Linux)
+        alias ls='ls --color=auto'
+        ;;
+    Darwin|FreeBSD)
+        alias ls='ls -GvF'
+        ;;
+esac
+#alias -g L="| $PAGER"
+#alias -g G="| grep"
+
+
+#### オプション設定
+
+## based on http://hatena.g.hatena.ne.jp/hatenatech/20060517
+
+# 複数の zsh を同時に使う時など history ファイルに上書きせず追加する
+setopt append_history
+
+# 指定したコマンド名がなく、ディレクトリ名と一致した場合 cd する
+setopt auto_cd
+
+# 補完候補が複数ある時に、一覧表示する
+setopt auto_list
+
+# 補完キー（Tab, Ctrl+I) を連打するだけで順に補完候補を自動で補完する
+setopt auto_menu
+
+# カッコの対応などを自動的に補完する
+setopt auto_param_keys
+
+# ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
+setopt auto_param_slash
+
+# 最後がディレクトリ名で終わっている場合末尾の / を自動的に取り除く
+#setopt auto_remove_slash
+
+# サスペンド中のプロセスと同じコマンド名を実行した場合はリジュームする
+setopt auto_resume
+
+# ビープ音を鳴らさないようにする
+setopt NO_beep
+
+# {a-c} を a b c に展開する機能を使えるようにする
+setopt brace_ccl
+
+# 内部コマンドの echo を BSD 互換にする
+#setopt bsd_echo
+
+# シンボリックリンクは実体を追うようになる
+#setopt chase_links
+
+# 既存のファイルを上書きしないようにする
+#setopt clobber
+
+# コマンドのスペルチェックをする
+setopt correct
+
+# コマンドライン全てのスペルチェックをする
+#setopt correct_all
+
+# =command を command のパス名に展開する
+setopt equals
+
+# ファイル名で #, ~, ^ の 3 文字を正規表現として扱う
+setopt extended_glob
+
+# zsh の開始・終了時刻をヒストリファイルに書き込む
+#setopt extended_history
+
+# Ctrl+S/Ctrl+Q によるフロー制御を使わないようにする
+setopt NO_flow_control
+
+# 各コマンドが実行されるときにパスをハッシュに入れる
+#setopt hash_cmds
+
+# 直前と同じコマンドラインはヒストリに追加しない
+setopt hist_ignore_dups
+
+# コマンドラインの先頭がスペースで始まる場合ヒストリに追加しない
+setopt hist_ignore_space
+
+# ヒストリを呼び出してから実行する間に一旦編集できる状態になる
+setopt hist_verify
+
+# シェルが終了しても裏ジョブに HUP シグナルを送らないようにする
+setopt NO_hup
+
+# Ctrl+D では終了しないようになる（exit, logout などを使う）
+setopt ignore_eof
+
+# コマンドラインでも # 以降をコメントと見なす
+setopt interactive_comments
+
+# auto_list の補完候補一覧で、ls -F のようにファイルの種別をマーク表示
+setopt list_types
+
+# 内部コマンド jobs の出力をデフォルトで jobs -l にする
+setopt long_list_jobs
+
+# コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
+setopt magic_equal_subst
+
+# メールスプール $MAIL が読まれていたらワーニングを表示する
+#setopt mail_warning
+
+# ファイル名の展開でディレクトリにマッチした場合末尾に / を付加する
+setopt mark_dirs
+
+# 補完候補が複数ある時、一覧表示 (auto_list) せず、すぐに最初の候補を補完する
+setopt menu_complete
+
+# 複数のリダイレクトやパイプなど、必要に応じて tee や cat の機能が使われる
+setopt multios
+
+# ファイル名の展開で、辞書順ではなく数値的にソートされるようになる
+setopt numeric_glob_sort
+
+# コマンド名に / が含まれているとき PATH 中のサブディレクトリを探す
+#setopt path_dirs
+
+# 8 ビット目を通すようになり、日本語のファイル名などを見れるようになる
+setopt print_eightbit
+
+# 戻り値が 0 以外の場合終了コードを表示する
+# setopt print_exit_value
+
+# ディレクトリスタックに同じディレクトリを追加しないようになる
+#setopt pushd_ignore_dups
+
+# pushd を引数なしで実行した場合 pushd $HOME と見なされる
+#setopt pushd_to_home
+
+# rm * などの際、本当に全てのファイルを消して良いかの確認しないようになる
+#setopt rm_star_silent
+
+# rm_star_silent の逆で、10 秒間反応しなくなり、頭を冷ます時間が与えられる
+setopt rm_star_wait
+
+# for, repeat, select, if, function などで簡略文法が使えるようになる
+setopt short_loops
+
+# デフォルトの複数行コマンドライン編集ではなく、１行編集モードになる
+#setopt single_line_zle
+
+# コマンドラインがどのように展開され実行されたかを表示するようになる
+#setopt xtrace
+
+# 色を使う
+setopt prompt_subst
+
+# シェルのプロセスごとに履歴を共有
+setopt share_history
+
+# history (fc -l) コマンドをヒストリリストから取り除く。
+setopt hist_no_store
+
+# 文字列末尾に改行コードが無い場合でも表示する
+unsetopt promptcr
+
+#コピペの時rpromptを非表示する
+#setopt transient_rprompt
+
+# cd -[tab] でpushd
+#setopt autopushd
+
+# alias を展開して補完
+setopt complete_aliases
+
+# magics http://www.jukie.net/~bart/blog/20071219221358
+typeset -ga preexec_functions
+typeset -ga precmd_functions
+typeset -ga chpwd_functions
+
+
+#### git
+
+export __CURRENT_GIT_BRANCH=""
+parse_git_branch() {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+preexec_functions+='zsh_preexec_update_git_vars'
+zsh_preexec_update_git_vars() { # FIXME 1コマンド分遅れる
+    local hist
+    local histcmd
+    histcmd=`expr $HISTCMD - 1`
+    hist="$(history $histcmd)"
+    case $hist in
+        *git*)
+        echo $hist >> /tmp/git-hist
+        export __CURRENT_GIT_BRANCH="$(parse_git_branch)"
+        ;;
+    esac
+}
+
+chpwd_functions+='zsh_chpwd_update_git_vars'
+zsh_chpwd_update_git_vars() {
+    export __CURRENT_GIT_BRANCH="$(parse_git_branch)"
+}
+
+get_git_prompt_info() {
+    if [ -n "$__CURRENT_GIT_BRANCH" ]; then
+        echo " ($__CURRENT_GIT_BRANCH)"
+    fi
+}
+
+
+if [ "$TERM" = "screen" ]; then
+ chpwd () {
+   echo -n "_`dirs`\\"
+   _reg_pwd_screenNum
+ }
+ preexec() {
+  # see [zsh-workers:13180]
+  # http://www.zsh.org/mla/workers/2000/msg03993.html
+  emulate -L zsh
+  local -a cmd; cmd=(${(z)2})
+  case $cmd[1] in
+   fg)
+    if (( $#cmd == 1 )); then
+     cmd=(builtin jobs -l %+)
+    else
+     cmd=(builtin jobs -l $cmd[2])
+    fi
+    ;;
+   %*)
+    cmd=(builtin jobs -l $cmd[1])
+    ;;
+   cd)
+    if (( $#cmd == 2)); then
+     cmd[1]=$cmd[2]
+    fi
+    ;&
+   *)
+    echo -n "k$cmd[1]:t\\"
+    return
+    ;;
+  esac
+
+  local -A jt; jt=(${(kv)jobtexts})
+
+  $cmd >>(read num rest
+   cmd=(${(z)${(e):-\$jt$num}})
+   echo -n "k$cmd[1]:t\\") 2>/dev/null
+ }
+ chpwd
+fi
+
+#### プロンプト
+unsetopt promptcr
+setopt prompt_subst
+PROMPT=$'%{$fg[cyan]%}[%m:%~]%{$reset_color%}''$(get_git_prompt_info)'$' %{$fg[yellow]%}%D%  %T%{$reset_color%}\n${WINDOW:+"$WINDOW:"}%{$fg[green]%}%n%{$reset_color%}%{$fg[yellow]%}[%!]%{$reset_color%}%(!.#.$) '
+
+# cdd for screen
+autoload -U compinit
+compinit
+source ~/path/cdd  # (cdd はこのファイル) する)
+
+# sshの接続先をscreenのWindowタイトルにする
+function ssh_screen(){
+    eval server=\${$#}
+    screen -t $server ssh "$@"
+}
+if [ x$TERM = xscreen ]; then
+    alias ssh=ssh_screen
+fi
+
+#### 個人用設定ファイルがあればそれを読み込む
+if [ -e ~/.zshrc_private ]; then
+    source ~/.zshrc_private
+fi
+
+#### エイリアスファイルがあれば読み込む
+if [ -e ~/.alias ]; then
+    source ~/.alias
+fi
+
+function hoge(){
+  echo $1
+  ssh $1@192.168.2.96 -X
+}

@@ -1,0 +1,12 @@
+"gvim setting ----------
+if has('gui_macvim') 
+    set showtabline=2   " タブを常に表示 
+    set imdisable   " IMを無効化 
+    set transparency=8 " 透明度を指定 
+    set antialias 
+    set guifont=M+2VM+IPAG\ circle\ Regular:h10 
+    set guifontwide=M+2VM+IPAG\ circle\ Regular:h10
+    set lines=90 columns=300 
+    colorscheme Dark 
+    "hi CursorIM  guifg=black  guibg=red  gui=NONE  ctermfg=black  ctermbg=>
+endif

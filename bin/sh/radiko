@@ -1,0 +1,15 @@
+#! /bin/sh
+if [ $# -ne 1 ] || [ $1 = "--help" ]
+    then
+    echo "Usage:"
+    echo " radiko ABC # ABC ラジオ"
+    echo " radiko MBS # MBS ラジオ"
+    echo " radiko OBC # ラジオ大阪"
+    echo " radiko CCL # FM COCORO"
+    echo " radiko 802 # FM 80.2"
+    echo " radiko FMO # FM OSAKA"
+    cast=802
+else
+    cast=$1
+fi
+rtmpdump --rtmp "rtmpe://radiko.smartstream.ne.jp:1935" --playpath "simul-stream" --swfUrl "http://radiko-dl.ssdl1.smartstream.ne.jp/radiko-dl/1.1/player/player_0.1.2.swf" --pageUrl "http://radiko.jp/player/player.html#$cast" --app "$cast/_defInst_" --flashVer "LNX 10,1,53,64" --live | mplayer -

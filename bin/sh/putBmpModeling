@@ -1,0 +1,2 @@
+#!/bin/bash
+cp ./bmpModeling.rb ~/Dropbox/config/bin/rb/

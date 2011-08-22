@@ -1,0 +1,42 @@
+alias reload="source ~/.zshrc"
+alias bin="cd ~/Dropbox/config/bin"
+case "${OSTYPE}" in
+# Mac(Unix)
+darwin*)
+  alias cemacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
+  alias gemacs="open -n /Applications/Emacs.app"
+  alias emacs="open -a Emacs"
+  alias o="open"
+  alias tmvim="mvim --remote-tab"
+  alias synergy="/usr/local/bin/synergys"
+  alias xampp="sudo /Applications/XAMPP/xamppfiles/xampp start"
+  alias slock="open '/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app'"
+  alias perl="/usr/local/ActivePerl-5.12/bin/perl"
+  ;;
+# Linux
+linux*)
+  alias matlab="matlab &"
+  alias open="nautilus"
+  alias o="open"
+  alias tera="cd /mnt/tera/7th/sugimoto"
+  ;;
+esac
+
+alias monster="ssh sugimoto@192.168.2.96 -X"
+alias monster94="ssh sugimoto@192.168.2.94 -X"
+alias monster92="ssh sugimoto@192.168.2.92 -X"
+alias monster91="ssh sugimoto@192.168.2.91 -X"
+alias ultra11="ssh sugimoto@192.168.2.11 -X"
+alias sukemon="ssh sugimoto@192.168.2.24 -X"
+alias sukemon25="ssh sugimoto@192.168.2.25 -X"
+alias sukemon26="ssh sugimoto@192.168.2.26 -X"
+alias super="ssh sugimoto@192.168.2.21 -X"
+alias claster="ssh sugimoto@ewscw021.bkc.ritsumei.ac.jp -Y"
+
+alias sftpMonster="sftp sugimoto@192.168.2.96"
+alias sftpSuper="sftp sugimoto@192.168.2.21"
+alias sftpClaster="sftp sugimoto@ewscw021.bkc.ritsumei.ac.jp"
+
+alias lftpMonster="lftp sftp://sugimoto@192.168.2.96"
+alias lftpSuper="lftp sftp://sugimoto@192.168.2.21"
+
