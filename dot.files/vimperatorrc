@@ -1,31 +1,29 @@
-set hlsearch
-" ビープ音を無効化
+" Options {{{1
+set runtimepath=~/.vimperator
+set titlestring="Mozilla Firefox"
+set messages=100
+set verbose=1
+set defsearch=google
+set toolbars=noaddons,nobookmarks,nomenu,nonavigation,tabs
+set complete=slS
+set history=1000
+set newtab=all
+set popups=tab
+set nohlsearch
+set ignorecase
+set incsearch
+set smartcase
+set focuscontent
+" ビープ音無効化
 set visualbell
-hi Bell display:none;
-" 常にタブ表示
-set showtabline=2
-" コマンド補完
-set wildoptions=auto
-" アドレス補完
-set complete=lbsS
+" 検索結果を強調表示
+set hlsearch
+" ヒントに使うキー設定
+set hintchars=HJKLASDFGYUIOPQWERTNMZXCVB
+hi Hint z-index:5000; font-size:14px; color:white; background-color:red; border-color:ButtonShadow; border-width:0px; border-style:solid; padding:0px 2px 0px 2px; position:absolute; font-family: Menlo, Consolas, Monaco, monospace; text-transform: uppercase;
 
-
-" <S-r> で .vimperatorrc をリロード
-map <S-r> :source ~/.vimperatorrc<CR>
-
-
-" アクセスキーを無効に
-set! ui.key.generalAccessKey=0
-" リンクをバックグランドで開く
-set! browser.tabs.loadDivertedInBackground=true
-
-"
-" キーマップ設定
-"------------------------------------------------
-
+" Key mapping
 " タブ切り替え
-"map <C-n> <C-TAB>
-"map <C-p> <C-S-TAB>
 map h <C-n>
 map l <C-p>
 inoremap <C-n> <C-TAB>
@@ -34,7 +32,7 @@ inoremap <C-p> <C-S-TAB>
 " タブオープン
 map <C-t> :tabopen<CR>
 " タブクローズ
-map <C-d> :tabclose<CR>
+map <C-w> :tabclose<CR>
 
 " j, k を10倍に
 map j 10<C-e>
@@ -50,7 +48,7 @@ map ,r :restart<CR>
 " Stop loading
 map ,c :stop<CR>
 
-" qmark go + ○ でアクセス
+" Quick bookmark
 qmark c http://www.google.com/calendar/render
 qmark d http://d.hatena.ne.jp/mekanical/
 qmark e http://www.alc.co.jp/
@@ -66,81 +64,4 @@ qmark t http://k-kim.tumblr.com/
 qmark w http://www35.atwiki.jp/mekanical/
 qmark y http://honyaku.yahoo.co.jp/
 
-
-" タブ自体を移動，メニュー関係をいじる設定
-" cf. http://d.hatena.ne.jp/mickey24/20081122/1227365637
-js <<EOM
-[
-    ['>', ':tabmove! +1', true],
-    ['<', ':tabmove! -1', true],
-    [',0', ':set guioptions=', true],
-    [',1', ':set guioptions=mT', true],
-    [',2', ':set guioptions=mTB', true],
-].forEach(function([key,command,exec]) {
-    mappings.addUserMap([modes.NORMAL], [key],
-        'User defined mapping', function(){
-            exec ? liberator.execute(command) :
-            liberator.commandline.open(command.substring(0, 1), command.substring(1), liberator.modes.EX); },
-            {
-                rhs: command,
-                noremap: true
-            }
-    );
-});
-EOM
-
-"" feedSomeKeys_2.js
-" Init
-:autocmd LocationChange .* :fmapc
-" Gmail
-:autocmd LocationChange 'mail\.google\.com/mail' :fmap c / j k n p o u e x s r a l # [ ] z ? gi gs gt gd ga gc . <C-a> <C-c> <C-x> <C-v>
-" GoogleReader
-:autocmd LocationChange 'www\.google\.(com|co\.jp)/reader' :fmap! -vkey j k n p m s t v A r S N P X O gh ga gs gt gu u / ? <C-a> <C-c> <C-x> <C-v>
-" GoogleCalender
-:autocmd LocationChange 'www\.google\.com/calendar/' :fmap! -vkey -event keydown j k t a w m x c e <Del> / + q s ?
-" Hatena::Bookmark
-:autocmd LocationChange 'b\.hatena\.ne\.jp/' :fmap! j k o e b
-:autocmd LocationChange 'b\.hatena\.ne\.jp/(guide|help|articles)' :fmapc
-
-
-" migemo_hint.js
-set hintmatching=custom
-
-" ブラウザタイトルを変更
-set titlestring=Firefox
-" フォーカスを奪われるのを防ぐ
-set focuscontent
-
-" Search Engine を google.com に変更
-bmark -title="Google" -tags=keyword -keyword=g http://www.google.com/search?q=%s
-set defsearch=g
-
-
-" <BS> で「戻る」
-map <BS> H
-
-
-" コピペ関係
-noremap  <C-a> <C-v><C-a>
-inoremap <C-a> <C-v><C-a>
-cnoremap <C-a> <C-v><C-a>
-noremap  <C-c> <C-v><C-c>
-inoremap <C-c> <C-v><C-c>
-cnoremap <C-c> <C-v><C-c>
-inoremap <C-x> <S-Del>
-cnoremap <C-x> <S-Del>
-inoremap <C-z> <C-v><C-z>
-cnoremap <C-z> <C-v><C-z>
-inoremap <C-v> <S-Insert>
-cnoremap <C-v> <S-Insert>
-
-
-" GoogleCalendar の CSS をカスタマイズ
-sty www.google.com .st-bg-today {background-color: pink !important;}
-" 昔の Google に
-sty http://www.google.* .gac_c, .lst, .lsb {font-size:12px !important; height:inherit !important}
-" Google から飛んだときにはてダのハイライトの色を変える
-sty hatena.ne.jp .highlight {background-color:hotpink !important;}
-" タブ追加アイコンを非表示に
-sty chrome://* .tabs-newtab-button { display: none;}
 
